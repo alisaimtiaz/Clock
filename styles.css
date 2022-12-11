@@ -1,0 +1,107 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+    font-family: Gotham Rounded, sans-serif;
+}
+
+body {
+    /* gradient going right */
+    background: linear-gradient(to right, rgb(55, 8, 112),
+    rgb(200, 5, 135));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* moves clock to center according to y axis */
+    min-height: 100vh;
+    /* to hide scroll bar, hide overflow */
+    overflow: hidden;
+}
+
+.clock {
+    width: 300px;
+    height: 300px;
+    /* the 'a' adds transparency - 70% */
+    background-color: rgba(255,255,255,.7);
+    /* to make the circle, use border radius */
+    border-radius: 50%;
+    border: 3px solid black;
+    position: relative;
+}
+
+.clock .number {
+    --rotation: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transform: rotate(var(--rotation));
+    font-size: 1.5rem;
+}
+
+.clock .number1 { --rotation: 30deg; }
+.clock .number2 { --rotation: 60deg; }
+.clock .number3 { --rotation: 90deg; }
+.clock .number4 { --rotation: 120deg; }
+.clock .number5 { --rotation: 150deg; }
+.clock .number6 { --rotation: 180deg; }
+.clock .number7 { --rotation: 210deg; }
+.clock .number8 { --rotation: 240deg; }
+.clock .number9 { --rotation: 270deg; }
+.clock .number10 { --rotation: 300deg; }
+.clock .number11 { --rotation: 330deg; }
+
+.clock .hand {
+    /* by default we want this to be 0 */
+    --rotation: 0;
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    border: 1px solid white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    /* where you want the transform's origin to be applied to */
+    transform-origin: bottom;
+    /* makes sure hands always draw on top of the numbers */
+    z-index: 10;
+    /* translating negative 50% on the x axis
+    (translates 50% of its width backwards)
+    uses rotate with a variable called rotation
+    (this is for js for how hand will rotate)
+    also need to convert the value of rotation to "degrees" - use calc */
+    transform: translateX(-50%) rotate(calc(var(--rotation) * 1deg));
+    
+}
+
+/* creates a pseudo-element that is the last child
+of the selected element */
+.clock::after {
+    /* set content to empty string adds new element that we can style */
+    content: '';
+    position: absolute;
+    background-color: black;
+    z-index: 11;
+    width: 15px;
+    height: 15px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+
+   
+
+}
+
+.clock .hand.hour {
+    width: 10px;
+    height: 35%;
+    background-color: black;
+}
+.clock .hand.minute {
+    width: 6px;
+    height: 40%;
+    background-color: black;
+}
+.clock .hand.second {
+    width: 3px;
+    height: 45%;
+    background-color: red;
+}
